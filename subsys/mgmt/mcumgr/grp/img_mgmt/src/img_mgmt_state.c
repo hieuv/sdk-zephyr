@@ -623,6 +623,14 @@ int img_mgmt_set_next_boot_slot(int slot, bool confirm)
 	}
 #endif
 
+	if (confirm &&
+		image == img_mgmt_active_image() &&
+		!IS_ENABLED(CONFIG_MCUMGR_GRP_IMG_ALLOW_CONFIRM_ACTIVE_IMAGE_SECONDARY) &&
+		slot != active_slot) {
+		LOG_DBG("Not allowed to confirm non-active slot of active image");
+		return IMG_MGMT_ERR_IMAGE_CONFIRMATION_DENIED;
+	}
+
 	/* Setting test to active slot is not allowed. */
 	if (!confirm && slot == active_slot) {
 		return IMG_MGMT_ERR_IMAGE_SETTING_TEST_TO_ACTIVE_DENIED;

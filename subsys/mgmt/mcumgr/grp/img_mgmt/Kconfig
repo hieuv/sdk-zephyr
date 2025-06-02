@@ -82,6 +82,14 @@ config MCUMGR_GRP_IMG_ALLOW_CONFIRM_NON_ACTIVE_IMAGE_ANY
 	  broken and may not boot in other slot; instead application should
 	  have means to test and confirm the image.
 
+config MCUMGR_GRP_IMG_ALLOW_CONFIRM_ACTIVE_IMAGE_SECONDARY
+	bool "Allow to confirm secondary slot of active image"
+	default y
+	help
+	  Allows to confirm secondary (non-active) slot of active image.
+	  If disabled, MCUmgr will not be allowed to confirm secondary slot, and
+	  the secondary slot can only be confirmed by the active application during a test run.
+
 if !MCUBOOT_BOOTLOADER_MODE_DIRECT_XIP
 config MCUMGR_GRP_IMG_ALLOW_ERASE_PENDING
 	bool "Allow to erase pending slot"
